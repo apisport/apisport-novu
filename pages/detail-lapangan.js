@@ -97,29 +97,31 @@ export default function DetailLapangan() {
 
     const setAvailableHari = () => {
         let hariTemp = lapanganRes.infoVenue[0].hariOperasional.split(" - ")
-        // console.log(hariTemp)
+        console.log(hariTemp)
 
         let day = new Date()
-        const weekday = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-        const weekdayHitung = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+        const weekday = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+        const weekdayHitung = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Minggu"];
         let today = weekday[day.getUTCDay()]
         // console.log('Available Hari')
-        // console.log(today)
+        console.log(today)
 
         let indexAwalHari = weekdayHitung.indexOf(hariTemp[0])
         let indexAkhirHari = weekdayHitung.indexOf(hariTemp[1])
-        // console.log(indexAwalHari)
-        // console.log(indexAkhirHari)
+        console.log('Index di Array')
+        console.log(indexAwalHari)
+        console.log(indexAkhirHari)
 
         let totalIndex = indexAkhirHari - indexAwalHari
         let arrayAvailableHariTemp = []
-        // console.log(totalIndex)
+        console.log('Total Index')
+        console.log(totalIndex)
         for (let i = 0; i <= totalIndex; i++) {
             arrayAvailableHariTemp[i] = weekdayHitung[i]
         }
-        // console.log('Sudah Jadi:')
-        // console.log(arrayAvailableHariTemp)
-        // console.log('Hari UTC TGl MAIN')
+        console.log('Sudah Jadi:')
+        console.log(arrayAvailableHariTemp)
+        console.log('Hari UTC TGl MAIN')
         let dateCheckerInit = new Date(tglMain)
         let dateChecker = weekday[dateCheckerInit.getUTCDay()]
         hari = dateChecker

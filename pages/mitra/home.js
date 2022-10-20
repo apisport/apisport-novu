@@ -3,11 +3,22 @@ import useSWR from 'swr'
 import Link from "next/link";
 
 export default function HomeMitra({ namaVenueProps }) {
-    var currentdate = new Date();
+    //Date Now
+    var currentdate = new Date('20 Oct 2022');
     var dateTime = (currentdate.getMonth() + 1) + "/"
         + currentdate.getFullYear()
+    //Date Before
+    var dateTimePrev = (currentdate.getMonth()) + "/"
+        + currentdate.getFullYear()
+    if (currentdate.getMonth() == 0) {
+        dateTimePrev = 12 + "/"
+            + (currentdate.getFullYear() - 1)
+    }
+    console.log(dateTime)
+    console.log(dateTimePrev)
+
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/mitrahomedb?namaVenueReq=${namaVenueProps}&diterimaTglReq=${dateTime}`, fetcher, {refreshInterval: 1000})
+    const { data: data, error } = useSWR(`/api/mitrahomedb?namaVenueReq=${namaVenueProps}&diterimaTglReq=${dateTime}`, fetcher, { refreshInterval: 1000 })
 
     if (!data) {
         return <div className="spinner"></div>
@@ -162,7 +173,7 @@ export default function HomeMitra({ namaVenueProps }) {
             }
 
             <div className='row mt-3'><strong>
-               <h5 className='text-start'><b>Sosial Media</b></h5>
+                <h5 className='text-start'><b>Sosial Media</b></h5>
                 <div>
                     <div className="d-flex justify-content-between">
                         <span className='mb-2'>

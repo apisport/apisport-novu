@@ -12,7 +12,7 @@ export default function CariLapangan() {
         methods: ['POST', 'GET', 'HEAD'],
     })
     const novu = new Novu(process.env.NOVU_TOKEN);
-    async function sendEmail(cors) {
+    async function sendEmail() {
         let work = {
             nama: 'yes'
         }

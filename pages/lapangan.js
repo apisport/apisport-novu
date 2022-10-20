@@ -6,6 +6,7 @@ import CardRekomendasi from '../components/user/lapangan/CardRekomendasi'
 import CardKategori from '../components/user/lapangan/CardKategori'
  import Pagination from '../components/Pagination'
 import { useState } from 'react'
+import useSWR from 'swr'
 
 
 export default function Lapangan() {

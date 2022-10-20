@@ -4,26 +4,11 @@ const ObjectId = require('mongodb').ObjectId;
 // mengambil data dari collection Transaksi
 
 async function getVenue(req, res) {
-    const { namaVenueReq, diterimaTglReq } = req.query
+    const { namaVenueReq, diterimaTglReq, diterimaTglReqPrev } = req.query
     try {
         // connect to the database
         let { db } = await connectToDatabase();
-        let infoVenue = await db
-            .collection('mitra')
-            .find({
-                namaVenue: namaVenueReq
-            })
-            .sort({ idfavorit: -1 })
-            .toArray();
-        // return the posts
-        let infoLapangan = await db
-            .collection('lapangan')
-            .find({
-                namaVenue: namaVenueReq
-            })
-            .sort({ idfavorit: -1 })
-            .toArray();
-        let dashboard = await db
+        let transaksi1 = await db
             .collection('transaksi')
             .aggregate([
                 {
@@ -40,12 +25,27 @@ async function getVenue(req, res) {
                 }
             ])
             .toArray()
-        let hasil = {}
-        hasil['infoVenue'] = infoVenue
-        hasil['infoLapangan'] = infoLapangan
-        hasil['dashboard'] = dashboard
-        hasil['diterimaTglReq'] = diterimaTglReq
+        let transaksi2 = await db
+            .collection('transaksi')
+            .aggregate([
+                {
+                    $match: {
+                        "namaVenue": { $regex: `${namaVenueReq}`, $options: "i" },
+                        "diterimaTgl": { $regex: `${diterimaTglReqPrev}`, $options: "i" },
+                        "status": { $ne: 'pending' }
+                    }
+                },
+                {
+                    $project: {
+                        harga: 1,
+                    }
+                }
+            ])
+            .toArray()
         // return the posts
+        let hasil = {}
+        hasil['bulanIni'] = transaksi1
+        hasil['bulanLalu'] = transaksi2
         return res.json({
             message: JSON.parse(JSON.stringify(hasil)),
             success: true,
