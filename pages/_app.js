@@ -27,6 +27,7 @@ import { SessionProvider } from "next-auth/react"
 import moment from 'moment'
 import useSWR from 'swr'
 
+
 function MyApp({ Component, pageProps }) {
   var currentdate = new Date();
   var dateDate = currentdate.getDate() + "/"

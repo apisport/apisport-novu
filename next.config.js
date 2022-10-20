@@ -9,4 +9,12 @@ const withPWA = require('next-pwa')({
 
 module.exports = withPWA({
     // next.js config
+    async rewrites() {
+        return [
+          {
+            source: '/notifikasi/mailjet',
+            destination: 'https://api.novu.co/v1/events/trigger',
+          },
+        ]
+      },
 })
